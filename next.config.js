@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: true, // important for static export
+    unoptimized: true, // You can keep this if you want
   },
 };
 
