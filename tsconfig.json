@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js", "next.config.js", "next.config.js", "components/sections/ProblemSolutionMain.jsx", "components/sections/PremiumServicesSection.js", "components/VoiceAssitant.js", "components/VoiceAssitant.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js", "next.config.js", "next.config.js", "components/sections/ProblemSolutionMain.jsx", "components/sections/PremiumServicesSection.js", "components/VoiceAssitant.js", "components/VoiceAssitant.js", "src/app/api/ai/groq/route.js", "src/app/messaging.js", "src/app/api/ai/chat/route.js"],
   "exclude": ["node_modules"]
 }

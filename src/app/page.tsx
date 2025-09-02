@@ -10,7 +10,7 @@ import PremiumServicesSection from '../../components/sections/PremiumServicesSec
 import PremiumProblemsPage from '../../components/sections/PremiumProblemsPage'
 import UniqueCtaSection from '../../components/sections/UniqueCtaSection'
 import WebboticaRobot from '../../components/PremiumRobotGuide'
-
+import MessageCreator from '../../components/messaging'
 export default function HomePage(): JSX.Element {
   const [isNovaOpen, setIsNovaOpen] = useState<boolean>(false)
   const [hideFloatingButton, setHideFloatingButton] = useState<boolean>(false)
@@ -124,6 +124,7 @@ export default function HomePage(): JSX.Element {
             pointerEvents: 'auto'
           }}
         >
+
           <HeroSection onTryDemo={() => setIsNovaOpen(true)} />
           <PremiumServicesSection />
           <PremiumProblemsPage />
