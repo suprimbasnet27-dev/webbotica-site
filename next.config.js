@@ -6,6 +6,21 @@ const nextConfig = {
   images: {
     unoptimized: true, // You can keep this if you want
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'writer.webbotica.com',
+          },
+        ],
+        destination: 'https://webbotica.com/writer/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
