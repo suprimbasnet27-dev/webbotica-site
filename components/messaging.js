@@ -98,15 +98,31 @@ const MessageCreator = () => {
     }
   };
 
+  const pasteFromClipboard = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      setInputMessage(text);
+    } catch (err) {
+      console.error('Failed to paste: ', err);
+      alert('Paste failed. Please paste manually.');
+    }
+  };
+
   const saveTemplate = () => {
     if (!templateName.trim()) {
       alert('Please enter a template name!');
       return;
     }
     
+    if (!inputMessage.trim()) {
+      alert('Please enter a message to save as template!');
+      return;
+    }
+    
     const newTemplate = {
       id: Date.now(),
       name: templateName,
+      message: inputMessage,
       tone: selectedTone,
       platform: selectedPlatform,
       mode: mode,
@@ -121,6 +137,7 @@ const MessageCreator = () => {
   };
 
   const loadTemplate = (template) => {
+    setInputMessage(template.message);
     setSelectedTone(template.tone);
     setSelectedPlatform(template.platform);
     setMode(template.mode);
@@ -146,21 +163,12 @@ const MessageCreator = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4 md:p-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 sm:p-4 md:p-6">
+      <div className="h-full sm:max-w-4xl sm:mx-auto bg-white sm:rounded-xl sm:shadow-xl p-4 sm:p-6 md:p-8 min-h-screen sm:min-h-0">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Smart Message Creator</h1>
           <p className="text-sm sm:text-base text-gray-600">Transform your messages with AI-powered tone and platform optimization</p>
-        </div>
-
-        {/* API Status Section */}
-        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg">
-          <h3 className="font-semibold text-green-800 mb-2">⚡ Powered by Groq + Llama 3</h3>
-          <p className="text-xs sm:text-sm text-green-700">
-            This app uses Groq's lightning-fast API with Meta's Llama 3 model for instant, high-quality message transformation.
-            API key is securely managed via backend environment variables.
-          </p>
         </div>
 
         {/* Mode Selector */}
@@ -189,15 +197,24 @@ const MessageCreator = () => {
           </button>
         </div>
 
-        {/* Input Section */}
+        {/* Input Section with Paste Button */}
         <div className="mb-4 sm:mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {mode === 'transform' ? 'Your Message:' : 'Message to Reply To:'}
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-sm font-medium text-gray-700">
+              {mode === 'transform' ? 'Your Message:' : 'Message to Reply To:'}
+            </label>
+            <button
+              onClick={pasteFromClipboard}
+              className="flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-all text-xs sm:text-sm font-medium"
+            >
+              <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
+              Paste
+            </button>
+          </div>
           <textarea
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={mode === 'transform' ? 'Paste your message here...' : 'Paste the message you want to reply to...'}
+            placeholder={mode === 'transform' ? 'Type or paste your message here...' : 'Type or paste the message you want to reply to...'}
             className="w-full h-28 sm:h-32 p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-sm sm:text-base"
           />
         </div>
@@ -327,6 +344,9 @@ const MessageCreator = () => {
                         <div className="text-xs sm:text-sm text-gray-500">
                           {template.tone} • {template.platform} • {template.mode} • {template.createdAt}
                         </div>
+                        <div className="text-xs text-gray-400 truncate mt-1">
+                          "{template.message?.substring(0, 50)}{template.message?.length > 50 ? '...' : ''}"
+                        </div>
                       </div>
                     </div>
                     <div className="flex gap-2 sm:ml-2">
@@ -372,7 +392,7 @@ const MessageCreator = () => {
         )}
 
         {/* Current Settings Display */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 sm:p-4 rounded-lg mb-4 sm:mb-0">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 sm:p-4 rounded-lg">
           <h3 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Current Settings:</h3>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
             <div className="flex items-center gap-1">
@@ -387,17 +407,6 @@ const MessageCreator = () => {
               <span>Mode: <strong>{mode === 'transform' ? 'Rewrite' : 'Reply'}</strong></span>
             </div>
           </div>
-        </div>
-
-        {/* Usage Tips */}
-        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-amber-50 rounded-lg border border-amber-200">
-          <h3 className="font-semibold text-amber-800 mb-2 text-sm sm:text-base">💡 Pro Tips:</h3>
-          <ul className="text-xs sm:text-sm text-amber-700 space-y-1">
-            <li>• Save your most-used combinations as templates for one-click access</li>
-            <li>• Different platforms have unique formatting - try the same message across platforms!</li>
-            <li>• Use Reply Mode to quickly respond to messages with the perfect tone</li>
-            <li>• Formal + Email works great for business communication</li>
-          </ul>
         </div>
       </div>
     </div>
