@@ -146,51 +146,51 @@ const MessageCreator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-      <div className="bg-white rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4 md:p-6">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Smart Message Creator</h1>
-          <p className="text-gray-600">Transform your messages with AI-powered tone and platform optimization</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Smart Message Creator</h1>
+          <p className="text-sm sm:text-base text-gray-600">Transform your messages with AI-powered tone and platform optimization</p>
         </div>
 
         {/* API Status Section */}
-        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg">
           <h3 className="font-semibold text-green-800 mb-2">⚡ Powered by Groq + Llama 3</h3>
-          <p className="text-sm text-green-700">
+          <p className="text-xs sm:text-sm text-green-700">
             This app uses Groq's lightning-fast API with Meta's Llama 3 model for instant, high-quality message transformation.
             API key is securely managed via backend environment variables.
           </p>
         </div>
 
         {/* Mode Selector */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-6">
           <button
             onClick={() => setMode('transform')}
-            className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-all ${
+            className={`flex-1 py-3 px-4 sm:px-6 rounded-lg font-semibold transition-all text-sm sm:text-base ${
               mode === 'transform' 
                 ? 'bg-blue-500 text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
-            <Edit3 className="w-5 h-5 inline mr-2" />
+            <Edit3 className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
             Rewrite Message
           </button>
           <button
             onClick={() => setMode('reply')}
-            className={`flex-1 py-3 px-6 rounded-lg font-semibold transition-all ${
+            className={`flex-1 py-3 px-4 sm:px-6 rounded-lg font-semibold transition-all text-sm sm:text-base ${
               mode === 'reply' 
                 ? 'bg-green-500 text-white shadow-lg' 
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
-            <MessageSquare className="w-5 h-5 inline mr-2" />
+            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
             Generate Reply
           </button>
         </div>
 
         {/* Input Section */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             {mode === 'transform' ? 'Your Message:' : 'Message to Reply To:'}
           </label>
@@ -198,33 +198,33 @@ const MessageCreator = () => {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder={mode === 'transform' ? 'Paste your message here...' : 'Paste the message you want to reply to...'}
-            className="w-full h-32 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+            className="w-full h-28 sm:h-32 p-3 sm:p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-sm sm:text-base"
           />
         </div>
 
         {/* Controls */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-6">
           {/* Tone Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Select Tone:</label>
-            <div className="grid grid-cols-2 gap-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2 sm:mb-3">Select Tone:</label>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
               {tones.map((tone) => {
                 const Icon = tone.icon;
                 return (
                   <button
                     key={tone.id}
                     onClick={() => setSelectedTone(tone.id)}
-                    className={`p-3 rounded-lg border transition-all text-left ${
+                    className={`p-2 sm:p-3 rounded-lg border transition-all text-left ${
                       selectedTone === tone.id
                         ? 'border-blue-500 bg-blue-50 text-blue-700'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <Icon className="w-4 h-4" />
-                      <span className="font-medium">{tone.label}</span>
+                      <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="font-medium text-xs sm:text-sm">{tone.label}</span>
                     </div>
-                    <p className="text-xs text-gray-500">{tone.description}</p>
+                    <p className="text-xs text-gray-500 hidden sm:block">{tone.description}</p>
                   </button>
                 );
               })}
@@ -233,23 +233,23 @@ const MessageCreator = () => {
 
           {/* Platform Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Select Platform:</label>
-            <div className="grid grid-cols-2 gap-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2 sm:mb-3">Select Platform:</label>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
               {platforms.map((platform) => {
                 const Icon = platform.icon;
                 return (
                   <button
                     key={platform.id}
                     onClick={() => setSelectedPlatform(platform.id)}
-                    className={`p-3 rounded-lg border transition-all ${
+                    className={`p-2 sm:p-3 rounded-lg border transition-all ${
                       selectedPlatform === platform.id
                         ? 'border-green-500 bg-green-50 text-green-700'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <Icon className="w-4 h-4" />
-                      <span className="font-medium">{platform.label}</span>
+                      <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="font-medium text-xs sm:text-sm">{platform.label}</span>
                     </div>
                   </button>
                 );
@@ -259,11 +259,11 @@ const MessageCreator = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-6">
           <button
             onClick={processMessage}
             disabled={isProcessing || !inputMessage.trim()}
-            className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-4 sm:px-6 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm sm:text-base"
           >
             {isProcessing ? (
               <div className="flex items-center justify-center gap-2">
@@ -272,7 +272,7 @@ const MessageCreator = () => {
               </div>
             ) : (
               <>
-                {mode === 'transform' ? <Edit3 className="w-5 h-5 inline mr-2" /> : <MessageSquare className="w-5 h-5 inline mr-2" />}
+                {mode === 'transform' ? <Edit3 className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" /> : <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />}
                 {mode === 'transform' ? 'Rewrite Message' : 'Generate Reply'}
               </>
             )}
@@ -280,30 +280,30 @@ const MessageCreator = () => {
           
           <button
             onClick={() => setShowTemplates(!showTemplates)}
-            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-all"
+            className="px-4 sm:px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-all text-sm sm:text-base"
           >
-            <Clock className="w-5 h-5 inline mr-2" />
+            <Clock className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
             Templates
           </button>
         </div>
 
         {/* Template Management */}
         {showTemplates && (
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-            <h3 className="font-semibold text-gray-800 mb-4">Saved Templates</h3>
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-lg">
+            <h3 className="font-semibold text-gray-800 mb-3 sm:mb-4">Saved Templates</h3>
             
             {/* Save Current Settings */}
-            <div className="flex gap-2 mb-4">
+            <div className="flex flex-col sm:flex-row gap-2 mb-3 sm:mb-4">
               <input
                 type="text"
                 value={templateName}
                 onChange={(e) => setTemplateName(e.target.value)}
                 placeholder="Template name..."
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
               />
               <button
                 onClick={saveTemplate}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all text-sm sm:text-base"
               >
                 <Save className="w-4 h-4 inline mr-2" />
                 Save Current
@@ -313,26 +313,26 @@ const MessageCreator = () => {
             {/* Template List */}
             <div className="space-y-2">
               {templates.length === 0 ? (
-                <p className="text-gray-500 text-center py-4">No templates saved yet</p>
+                <p className="text-gray-500 text-center py-4 text-sm sm:text-base">No templates saved yet</p>
               ) : (
                 templates.map((template) => (
-                  <div key={template.id} className="flex items-center justify-between p-3 bg-white rounded-lg border">
+                  <div key={template.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-white rounded-lg border gap-2 sm:gap-0">
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">
                         {getToneIcon(template.tone)}
                         {getPlatformIcon(template.platform)}
                       </div>
-                      <div>
-                        <span className="font-medium">{template.name}</span>
-                        <div className="text-sm text-gray-500">
+                      <div className="min-w-0 flex-1">
+                        <span className="font-medium text-sm sm:text-base">{template.name}</span>
+                        <div className="text-xs sm:text-sm text-gray-500">
                           {template.tone} • {template.platform} • {template.mode} • {template.createdAt}
                         </div>
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 sm:ml-2">
                       <button
                         onClick={() => loadTemplate(template)}
-                        className="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-all"
+                        className="flex-1 sm:flex-none px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-all text-sm"
                       >
                         Load
                       </button>
@@ -352,29 +352,29 @@ const MessageCreator = () => {
 
         {/* Output Section */}
         {outputMessage && (
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className="flex items-center justify-between mb-2">
               <label className="text-sm font-medium text-gray-700">
                 {mode === 'transform' ? 'Rewritten Message:' : 'Generated Reply:'}
               </label>
               <button
                 onClick={() => copyToClipboard(outputMessage)}
-                className="flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-all"
+                className="flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-all text-sm"
               >
-                <Copy className="w-4 h-4" />
+                <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                 Copy
               </button>
             </div>
-            <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 whitespace-pre-wrap">
+            <div className="p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200 whitespace-pre-wrap text-sm sm:text-base">
               {outputMessage}
             </div>
           </div>
         )}
 
         {/* Current Settings Display */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg">
-          <h3 className="font-semibold text-gray-800 mb-2">Current Settings:</h3>
-          <div className="flex items-center gap-4 text-sm text-gray-600">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 sm:p-4 rounded-lg mb-4 sm:mb-0">
+          <h3 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Current Settings:</h3>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
             <div className="flex items-center gap-1">
               {getToneIcon(selectedTone)}
               <span>Tone: <strong>{tones.find(t => t.id === selectedTone)?.label}</strong></span>
@@ -390,9 +390,9 @@ const MessageCreator = () => {
         </div>
 
         {/* Usage Tips */}
-        <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
-          <h3 className="font-semibold text-amber-800 mb-2">💡 Pro Tips:</h3>
-          <ul className="text-sm text-amber-700 space-y-1">
+        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-amber-50 rounded-lg border border-amber-200">
+          <h3 className="font-semibold text-amber-800 mb-2 text-sm sm:text-base">💡 Pro Tips:</h3>
+          <ul className="text-xs sm:text-sm text-amber-700 space-y-1">
             <li>• Save your most-used combinations as templates for one-click access</li>
             <li>• Different platforms have unique formatting - try the same message across platforms!</li>
             <li>• Use Reply Mode to quickly respond to messages with the perfect tone</li>
